@@ -1,0 +1,5 @@
+.idea
+target
+XMLConfig.iml
+src/main/resources/config.xml
+src/main/java/Main.java

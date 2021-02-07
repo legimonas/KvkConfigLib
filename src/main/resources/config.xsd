@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+    <xsd:attributeGroup name="entityAttributeGroup">
+        <xsd:attribute name="class-name" use="required"/>
+    </xsd:attributeGroup>
+
+    <xsd:attributeGroup name="tableAttributeGroup">
+        <xsd:attribute name="name" use="required"/>
+        <xsd:attribute name="catalog"/>
+        <xsd:attribute name="schema"/>
+    </xsd:attributeGroup>
+
+    <xsd:attributeGroup name="memberAttributeGroup">
+        <xsd:attribute name="type" use="required"/>
+        <xsd:attribute name="class" use="required"/>
+        <xsd:attribute name="name" use="required"/>
+    </xsd:attributeGroup>
+
+    <xsd:attributeGroup name="generatedTypeAttributeGroup">
+        <xsd:attribute name="strategy" default="IDENTITY">
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                    <xsd:enumeration value="IDENTITY"/>
+                    <xsd:enumeration value="TABLE"/>
+                    <xsd:enumeration value="SEQUENCE"/>
+                    <xsd:enumeration value="AUTO"/>
+                </xsd:restriction>
+            </xsd:simpleType>
+        </xsd:attribute>
+    </xsd:attributeGroup>
+
+
+    <xsd:attributeGroup name="columnAttributeGroup">
+        <xsd:attribute name="name" use="required">
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:string"/>
+            </xsd:simpleType>
+        </xsd:attribute>
+        <xsd:attribute name="unique">
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:boolean"/>
+            </xsd:simpleType>
+        </xsd:attribute>
+        <xsd:attribute name="nullable">
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:boolean"/>
+            </xsd:simpleType>
+        </xsd:attribute>
+        <xsd:attribute name="insertable">
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:boolean"/>
+            </xsd:simpleType>
+        </xsd:attribute>
+        <xsd:attribute name="updatable">
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:boolean"/>
+            </xsd:simpleType>
+        </xsd:attribute>
+        <xsd:attribute name="columnDefinition">
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:string"/>
+            </xsd:simpleType>
+        </xsd:attribute>
+        <xsd:attribute name="table">
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:string"/>
+            </xsd:simpleType>
+        </xsd:attribute>
+        <xsd:attribute name="length">
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:int">
+                    <xsd:minInclusive value="0"/>
+                </xsd:restriction>
+            </xsd:simpleType>
+        </xsd:attribute>
+        <xsd:attribute name="precision">
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:int">
+                    <xsd:minInclusive value="0"/>
+                </xsd:restriction>
+            </xsd:simpleType>
+        </xsd:attribute>
+        <xsd:attribute name="scale">
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:int">
+                    <xsd:minInclusive value="0"/>
+                </xsd:restriction>
+            </xsd:simpleType>
+        </xsd:attribute>
+    </xsd:attributeGroup>
+
+    <xsd:element name="entities">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="entity" maxOccurs="unbounded">
+                    <xsd:complexType>
+                        <xsd:sequence>
+
+                            <xsd:element name="table">
+                                <xsd:complexType>
+                                    <xsd:attributeGroup ref="tableAttributeGroup"/>
+                                </xsd:complexType>
+                            </xsd:element>
+
+                            <xsd:element name="members" minOccurs="0" maxOccurs="unbounded">
+                                <xsd:complexType>
+                                    <xsd:sequence>
+                                        <xsd:element name="member" minOccurs="0" maxOccurs="unbounded">
+                                            <xsd:complexType>
+                                                <xsd:sequence>
+
+                                                    <xsd:element name="id" minOccurs="0"/>
+
+                                                    <xsd:element name="generated-type" minOccurs="0">
+                                                        <xsd:complexType>
+                                                            <xsd:attributeGroup ref="generatedTypeAttributeGroup"/>
+                                                        </xsd:complexType>
+                                                    </xsd:element>
+
+                                                    <xsd:element name="column" minOccurs="0">
+                                                        <xsd:complexType>
+                                                            <xsd:attributeGroup ref="columnAttributeGroup"/>
+                                                        </xsd:complexType>
+                                                    </xsd:element>
+
+                                                </xsd:sequence>
+                                                <xsd:attributeGroup ref="memberAttributeGroup"/>
+                                            </xsd:complexType>
+                                        </xsd:element>
+                                    </xsd:sequence>
+                                </xsd:complexType>
+                            </xsd:element>
+
+                        </xsd:sequence>
+                        <xsd:attributeGroup ref="entityAttributeGroup"/>
+                    </xsd:complexType>
+
+                </xsd:element>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>
