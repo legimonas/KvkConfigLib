@@ -93,7 +93,7 @@
     <xsd:element name="entities">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element name="entity" maxOccurs="unbounded">
+                <xsd:element name="entity" minOccurs="0" maxOccurs="unbounded">
                     <xsd:complexType>
                         <xsd:sequence>
 
