@@ -6,7 +6,7 @@
 
     <groupId>com.kvk.config</groupId>
     <artifactId>KvkConfig</artifactId>
-    <version>0.6.3</version>
+    <version>0.6.4</version>
     <packaging>jar</packaging>
 
     <properties>

@@ -110,7 +110,7 @@
                                             <xsd:complexType>
                                                 <xsd:sequence>
 
-                                                    <xsd:element name="id" minOccurs="0"/>
+                                                    <xsd:element name="Id" minOccurs="0"/>
 
                                                     <xsd:element name="GeneratedValue" minOccurs="0">
                                                         <xsd:complexType>

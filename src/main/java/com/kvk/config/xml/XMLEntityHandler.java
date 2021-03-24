@@ -72,7 +72,7 @@ public class XMLEntityHandler extends DefaultHandler {
                 classes.get(classes.size()-1).getMembersInfo().add(memberInfo);
             }
         }
-        if(currentElement.equals("id")){
+        if(currentElement.equals("Id")){
             List<MemberInfo> memberInfos = classes.get(classes.size()-1).getMembersInfo();
             MemberInfo memberInfo = memberInfos.get(memberInfos.size()-1);
             memberInfo.addAnnotationInfo(AnnotationInfo.of(Id.class));
