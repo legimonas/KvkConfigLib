@@ -77,7 +77,7 @@ public class XMLEntityHandler extends DefaultHandler {
             MemberInfo memberInfo = memberInfos.get(memberInfos.size()-1);
             memberInfo.addAnnotationInfo(AnnotationInfo.of(Id.class));
         }
-        if(currentElement.equals("generated-type")){
+        if(currentElement.equals("GeneratedValue")){
             List<MemberInfo> memberInfos = classes.get(classes.size()-1).getMembersInfo();
             MemberInfo memberInfo = memberInfos.get(memberInfos.size()-1);
 
@@ -111,7 +111,7 @@ public class XMLEntityHandler extends DefaultHandler {
                 column.setLength(Integer.parseInt(length));
 
             String name = attributes.getValue("name");
-            column.setName(name == null? "": name);
+            column.setColumnName(name == null? "": name);
 
             String nullable = attributes.getValue("nullable");
             if(nullable != null)

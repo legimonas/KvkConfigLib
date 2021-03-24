@@ -17,7 +17,7 @@
         <xsd:attribute name="name" use="required"/>
     </xsd:attributeGroup>
 
-    <xsd:attributeGroup name="generatedTypeAttributeGroup">
+    <xsd:attributeGroup name="generatedValueAttributeGroup">
         <xsd:attribute name="strategy" default="IDENTITY">
             <xsd:simpleType>
                 <xsd:restriction base="xsd:string">
@@ -112,9 +112,9 @@
 
                                                     <xsd:element name="id" minOccurs="0"/>
 
-                                                    <xsd:element name="generated-type" minOccurs="0">
+                                                    <xsd:element name="GeneratedValue" minOccurs="0">
                                                         <xsd:complexType>
-                                                            <xsd:attributeGroup ref="generatedTypeAttributeGroup"/>
+                                                            <xsd:attributeGroup ref="generatedValueAttributeGroup"/>
                                                         </xsd:complexType>
                                                     </xsd:element>
 

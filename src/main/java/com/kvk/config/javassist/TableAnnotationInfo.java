@@ -7,6 +7,8 @@ import javassist.bytecode.annotation.Annotation;
 import javassist.bytecode.annotation.StringMemberValue;
 
 import javax.persistence.Table;
+import java.util.HashMap;
+import java.util.Map;
 
 public class TableAnnotationInfo extends AnnotationInfo {
 
@@ -141,5 +143,34 @@ public class TableAnnotationInfo extends AnnotationInfo {
         }
 
         return codeBuilder.toString();
+    }
+
+    @Override
+    public String getAnnotationName() {
+        return "Table";
+    }
+
+    @Override
+    public String getSerializedName() {
+        return "table";
+    }
+
+    @Override
+    public Map<String, Object> getParameters() {
+        Map<String, Object> params = new HashMap<>();
+        params.put("name", name);
+        params.put("catalog", catalog);
+        params.put("schema", schema);
+        return params;
+    }
+
+    @Override
+    public void setParameters(Map<String, Object> parameters) {
+        if (parameters.containsKey("name"))
+            name = (String) parameters.get("name");
+        if(parameters.containsKey("catalog"))
+            catalog = (String) parameters.get("catalog");
+        if(parameters.containsKey("schema"))
+            schema = (String) parameters.get("schema");
     }
 }

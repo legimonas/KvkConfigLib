@@ -7,6 +7,8 @@ import javassist.bytecode.annotation.Annotation;
 import javassist.bytecode.annotation.StringMemberValue;
 
 import javax.persistence.Entity;
+import java.util.HashMap;
+import java.util.Map;
 
 public class EntityAnnotationInfo extends AnnotationInfo{
     public String getName() {
@@ -39,4 +41,26 @@ public class EntityAnnotationInfo extends AnnotationInfo{
             annotationUse.param("name", name);
     }
 
+    @Override
+    public String getAnnotationName() {
+        return "Entity";
+    }
+
+    @Override
+    public String getSerializedName() {
+        return "entity";
+    }
+
+    @Override
+    public Map<String, Object> getParameters() {
+        Map<String, Object> params = new HashMap<>();
+        params.put("name", name);
+        return params;
+    }
+
+    @Override
+    public void setParameters(Map<String, Object> parameters) {
+        if(parameters.containsKey("name"))
+            name = (String) parameters.get("name");
+    }
 }

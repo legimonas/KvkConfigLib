@@ -21,11 +21,19 @@ public abstract class AnnotationInfo {
 
     public void setParam(String name, String value){}
 
+    public abstract String getAnnotationName();
+
+    public abstract String getSerializedName();
+
+    public abstract Map<String, Object> getParameters();
+
+    public abstract void setParameters(Map<String, Object> parameters);
+
     public static AnnotationInfo of(Class<? extends java.lang.annotation.Annotation> annotation, Map<String, Object> props){
         final Class<? extends java.lang.annotation.Annotation> persistenceAnnotation = annotation;
         return new AnnotationInfo() {
             Class<? extends java.lang.annotation.Annotation> type = annotation;
-            final Map<String, Object> properties = props;
+            Map<String, Object> properties = props;
             @Override
             public Annotation getAnnotation(ConstPool constPool) {
                 Annotation annotation = new Annotation(persistenceAnnotation.getName(), constPool);
@@ -68,6 +76,27 @@ public abstract class AnnotationInfo {
             public void setParam(String name, String value) {
                 properties.put(name, value);
             }
+
+            @Override
+            public String getAnnotationName() {
+                return annotation.getSimpleName();
+            }
+
+            @Override
+            public String getSerializedName() {
+                return annotation.getSimpleName();
+            }
+
+            @Override
+            public Map<String, Object> getParameters() {
+                return properties;
+            }
+
+            @Override
+            public void setParameters(Map<String, Object> parameters) {
+                this.properties = parameters;
+            }
+
 
             @Override
             public void annotateSource(JAnnotatable definedClass) {

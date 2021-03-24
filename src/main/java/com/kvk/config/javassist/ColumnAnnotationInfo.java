@@ -9,26 +9,27 @@ import javassist.bytecode.annotation.IntegerMemberValue;
 import javassist.bytecode.annotation.StringMemberValue;
 
 import javax.persistence.Column;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ColumnAnnotationInfo extends AnnotationInfo {
-    private String name = "";
-    private boolean unique = false;
-    private boolean nullable = true;
-    private boolean insertable = true;
-    private boolean updatable = true;
+    private String columnName = "";
+    private Boolean unique = false;
+    private Boolean nullable = true;
+    private Boolean insertable = true;
+    private Boolean updatable = true;
     private String columnDefinition = "";
     private String table = "";
-    private int length = 255;
-    private int precision = 0;
-    private int scale = 0;
+    private Integer length = 255;
+    private Integer precision = 0;
+    private Integer scale = 0;
 
 
     public ColumnAnnotationInfo() {
     }
 
-
-    public ColumnAnnotationInfo(String name) {
-        this.name = name;
+    public ColumnAnnotationInfo(String columnName) {
+        this.columnName = columnName;
     }
 
     public static class Builder {
@@ -41,7 +42,7 @@ public class ColumnAnnotationInfo extends AnnotationInfo {
 
 
         public Builder name(String name) {
-            columnAnnotationInfo.name = name;
+            columnAnnotationInfo.columnName = name;
             return this;
         }
 
@@ -99,12 +100,63 @@ public class ColumnAnnotationInfo extends AnnotationInfo {
         return new Builder();
     }
 
-    public String getName() {
-        return name;
+
+    @Override
+    public String getAnnotationName() {
+        return "Column";
     }
 
-    public void setName(String name) {
-        this.name = name;
+    @Override
+    public String getSerializedName() {
+        return "column";
+    }
+
+    @Override
+    public Map<String, Object> getParameters() {
+        Map<String, Object> params = new HashMap<>();
+        params.put("name", columnName);
+        params.put("unique", unique);
+        params.put("nullable", nullable);
+        params.put("insertable", insertable);
+        params.put("updatable", updatable);
+        params.put("columnDefinition", columnDefinition);
+        params.put("table", table);
+        params.put("length", length);
+        params.put("precision", precision);
+        params.put("scale", scale);
+        return params;
+    }
+
+    @Override
+    public void setParameters(Map<String, Object> parameters) {
+        if(parameters.containsKey("name"))
+            columnName = (String) parameters.get("name");
+        if(parameters.containsKey("unique"))
+            unique = (Boolean) parameters.get("unique");
+        if(parameters.containsKey("nullable"))
+            nullable = (Boolean) parameters.get("nullable");
+        if(parameters.containsKey("insertable"))
+            insertable = (Boolean) parameters.get("insertable");
+        if(parameters.containsKey("updatable"))
+            updatable = (Boolean) parameters.get("updatable");
+        if(parameters.containsKey("columnDefinition"))
+            columnDefinition = (String) parameters.get("columnDefinition");
+        if(parameters.containsKey("table"))
+            table = (String) parameters.get("table");
+        if(parameters.containsKey("length"))
+            length = (Integer) parameters.get("length");
+        if(parameters.containsKey("precision"))
+            precision = (Integer) parameters.get("precision");
+        if(parameters.containsKey("scale"))
+            scale = (Integer) parameters.get("scale");
+    }
+
+    public String getColumnName() {
+        return columnName;
+    }
+
+    public void setColumnName(String columnName) {
+        this.columnName = columnName;
     }
 
     public boolean isUnique() {
@@ -181,8 +233,8 @@ public class ColumnAnnotationInfo extends AnnotationInfo {
 
     public Annotation getAnnotation(ConstPool constPool) {
         Annotation annotation = new Annotation(Column.class.getName(), constPool);
-        if (!"".equals(name))
-            annotation.addMemberValue("name", new StringMemberValue(name, constPool));
+        if (!"".equals(columnName))
+            annotation.addMemberValue("name", new StringMemberValue(columnName, constPool));
         if (unique)
             annotation.addMemberValue("unique", new BooleanMemberValue(unique, constPool));
         if (!nullable)
@@ -208,8 +260,8 @@ public class ColumnAnnotationInfo extends AnnotationInfo {
     @Override
     public void annotateSource(JAnnotatable definedClass) {
         JAnnotationUse annotationUse = definedClass.annotate(Column.class);
-        if (!"".equals(name))
-            annotationUse.param("name", name);
+        if (!"".equals(columnName))
+            annotationUse.param("name", columnName);
         if (unique)
             annotationUse.param("unique", unique);
         if (!nullable)

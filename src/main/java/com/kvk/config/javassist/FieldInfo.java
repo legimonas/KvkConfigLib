@@ -7,9 +7,8 @@ import com.sun.codemodel.JMod;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FieldInfo implements MemberInfo {
-    private Class<?> type;
-    private String name;
+public class FieldInfo extends MemberInfo {
+
     private List<AnnotationInfo> annotationsInfo;
 
     public FieldInfo(Class<?> type, String name, List<AnnotationInfo> annotationsInfo) {
@@ -54,13 +53,4 @@ public class FieldInfo implements MemberInfo {
         return annotationsInfo;
     }
 
-    @Override
-    public Class<?> getType() {
-        return type;
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
 }
