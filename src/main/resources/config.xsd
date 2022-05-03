@@ -118,7 +118,7 @@
                                                         </xsd:complexType>
                                                     </xsd:element>
 
-                                                    <xsd:element name="column" minOccurs="0">
+                                                    <xsd:element name="Column" minOccurs="0">
                                                         <xsd:complexType>
                                                             <xsd:attributeGroup ref="columnAttributeGroup"/>
                                                         </xsd:complexType>

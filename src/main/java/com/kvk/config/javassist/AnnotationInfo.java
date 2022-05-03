@@ -114,21 +114,22 @@ public abstract class AnnotationInfo {
             @Deprecated
             @Override
             public String getCode(int countTabs) {
-                StringBuilder codeBuilder = new StringBuilder();
-                codeBuilder.append("\t".repeat(Math.max(0, countTabs)));
-                codeBuilder.append("@").append(persistenceAnnotation.getSimpleName());
-                boolean begin = true;
-                for(Method method: persistenceAnnotation.getDeclaredMethods()){
-                    if(properties.containsKey(method.getName())){
-                        if(begin){
-                            codeBuilder.append("(\n");
-                        }
-                        codeBuilder.append("\t".repeat(Math.max(0, countTabs+1)));
-                        codeBuilder.append(method.getName()).append("=").append(properties.get(method.getName())).append(",\n");
-                    }
-                }
-
-                return codeBuilder.toString();
+//                StringBuilder codeBuilder = new StringBuilder();
+//                codeBuilder.append("\t".repeat(Math.max(0, countTabs)));
+//                codeBuilder.append("@").append(persistenceAnnotation.getSimpleName());
+//                boolean begin = true;
+//                for(Method method: persistenceAnnotation.getDeclaredMethods()){
+//                    if(properties.containsKey(method.getName())){
+//                        if(begin){
+//                            codeBuilder.append("(\n");
+//                        }
+//                        codeBuilder.append("\t".repeat(Math.max(0, countTabs+1)));
+//                        codeBuilder.append(method.getName()).append("=").append(properties.get(method.getName())).append(",\n");
+//                    }
+//                }
+//
+//                return codeBuilder.toString();
+                return "";
             }
         };
     }

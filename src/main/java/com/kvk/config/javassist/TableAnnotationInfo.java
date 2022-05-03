@@ -105,44 +105,45 @@ public class TableAnnotationInfo extends AnnotationInfo {
     @Deprecated
     @Override
     public String getCode(int countTabs) {
-        StringBuilder codeBuilder = new StringBuilder();
-        codeBuilder.append("\t".repeat(Math.max(0, countTabs)));
-        codeBuilder.append("@").append(Table.class.getSimpleName());
-        boolean begin = true;
-
-        if (!"".equals(name)) {
-            if(begin) {
-                codeBuilder.append("(\n");
-                begin = false;
-            }
-            codeBuilder.append("\t".repeat(Math.max(0, countTabs + 1)));
-            codeBuilder.append("name=\"").append(name).append("\"\n");
-        }
-        if (!"".equals(catalog)) {
-            if(begin) {
-                codeBuilder.append("(\n");
-                begin = false;
-            }
-            codeBuilder.append("\t".repeat(Math.max(0, countTabs + 1)));
-            codeBuilder.append("catalog=\"").append(catalog).append("\"\n");
-        }
-        if (!"".equals(schema)) {
-            if(begin) {
-                codeBuilder.append("(\n");
-                begin = false;
-            }
-            codeBuilder.append("\t".repeat(Math.max(0, countTabs + 1)));
-            codeBuilder.append("schema=\"").append(schema).append("\"\n");
-        }
-
-        codeBuilder.append("\t".repeat(Math.max(0, countTabs)));
-        if(!begin){
-            codeBuilder.append(")\n");
-        }else {
-            codeBuilder.append("\n");
-        }
-
-        return codeBuilder.toString();
+//        StringBuilder codeBuilder = new StringBuilder();
+//        codeBuilder.append("\t".repeat(Math.max(0, countTabs)));
+//        codeBuilder.append("@").append(Table.class.getSimpleName());
+//        boolean begin = true;
+//
+//        if (!"".equals(name)) {
+//            if(begin) {
+//                codeBuilder.append("(\n");
+//                begin = false;
+//            }
+//            codeBuilder.append("\t".repeat(Math.max(0, countTabs + 1)));
+//            codeBuilder.append("name=\"").append(name).append("\"\n");
+//        }
+//        if (!"".equals(catalog)) {
+//            if(begin) {
+//                codeBuilder.append("(\n");
+//                begin = false;
+//            }
+//            codeBuilder.append("\t".repeat(Math.max(0, countTabs + 1)));
+//            codeBuilder.append("catalog=\"").append(catalog).append("\"\n");
+//        }
+//        if (!"".equals(schema)) {
+//            if(begin) {
+//                codeBuilder.append("(\n");
+//                begin = false;
+//            }
+//            codeBuilder.append("\t".repeat(Math.max(0, countTabs + 1)));
+//            codeBuilder.append("schema=\"").append(schema).append("\"\n");
+//        }
+//
+//        codeBuilder.append("\t".repeat(Math.max(0, countTabs)));
+//        if(!begin){
+//            codeBuilder.append(")\n");
+//        }else {
+//            codeBuilder.append("\n");
+//        }
+//
+//        return codeBuilder.toString();
+        return "";
     }
 
     @Override

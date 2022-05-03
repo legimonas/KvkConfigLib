@@ -93,7 +93,7 @@ public class XMLEntityHandler extends DefaultHandler {
 
             memberInfo.addAnnotationInfo(AnnotationInfo.of(GeneratedValue.class, parameters));
         }
-        if(currentElement.equals("column")){
+        if(currentElement.equals("Column")){
             List<MemberInfo> memberInfos = classes.get(classes.size()-1).getMembersInfo();
             MemberInfo memberInfo = memberInfos.get(memberInfos.size()-1);
 

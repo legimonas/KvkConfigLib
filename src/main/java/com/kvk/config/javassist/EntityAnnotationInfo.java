@@ -37,7 +37,7 @@ public class EntityAnnotationInfo extends AnnotationInfo{
 
     public void annotateSource(JDefinedClass definedClass){
         JAnnotationUse annotationUse = definedClass.annotate(Entity.class);
-        if(!"".equals(name))
+        if(!"".equals(name) && name != null)
             annotationUse.param("name", name);
     }
 

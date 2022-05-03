@@ -3,6 +3,7 @@ package com.kvk.config.javassist.builders;
 import com.kvk.config.javassist.AnnotationInfo;
 import com.kvk.config.javassist.EntityClass;
 import com.kvk.config.javassist.MemberInfo;
+import com.sun.codemodel.JClassAlreadyExistsException;
 import javassist.*;
 import javassist.bytecode.AnnotationsAttribute;
 import javassist.bytecode.ConstPool;
@@ -17,9 +18,16 @@ public class ByteCodeBuilder implements EntityCodeBuilder {
     }
     @Override
     public void buildCode(EntityClass entityClass, String directory) throws CannotCompileException, NotFoundException, IOException {
-        buildCode(ClassPool.getDefault(), entityClass, directory);
+        buildCode(ClassPool.getDefault(), entityClass, directory, false);
     }
-    public void buildCode(ClassPool classPool, EntityClass entityClass, String directory) throws CannotCompileException, NotFoundException, IOException {
+
+    @Override
+    public void buildCode(EntityClass entityClass, String directory, Boolean withGettersAndSetters) throws CannotCompileException, IOException, JClassAlreadyExistsException, NotFoundException {
+        buildCode(ClassPool.getDefault(), entityClass, directory, withGettersAndSetters);
+    }
+
+    public void buildCode(ClassPool classPool, EntityClass entityClass, String directory, Boolean withGettersAndSetters) throws CannotCompileException, NotFoundException, IOException {
+
         CtClass ctClass = classPool.makeClass(entityClass.getClassName());
         ConstPool constPool = ctClass.getClassFile().getConstPool();
 
@@ -39,6 +47,18 @@ public class ByteCodeBuilder implements EntityCodeBuilder {
 
             ctField.getFieldInfo().addAttribute(fieldAttribute);
             ctClass.addField(ctField);
+
+            if (withGettersAndSetters) {
+                String typeName = memberInfo.getType().getName();
+                String memberName = memberInfo.getName();
+                String capitalizedName = memberName.substring(0, 1).toUpperCase() + memberName.substring(1);
+
+                CtMethod ctMethodGetter = CtMethod.make("public " + typeName + " get" + capitalizedName + "() { return " + memberName + "; }", ctClass);
+                ctClass.addMethod(ctMethodGetter);
+                CtMethod ctMethodSetter = CtMethod.make("public void set" + capitalizedName + "(" + typeName + " newVal) { "+ memberName + " = newVal; }", ctClass);
+                ctClass.addMethod(ctMethodSetter);
+            }
+
         }
 
         ctClass.writeFile(directory);

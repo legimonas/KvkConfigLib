@@ -22,4 +22,5 @@ public abstract class MemberInfo {
     public abstract List<AnnotationInfo> getAnnotationsInfo();
     public abstract void addAnnotationInfo(AnnotationInfo annotationInfo);
     public abstract void addSource(JDefinedClass definedClass);
+    public abstract void addSource(JDefinedClass definedClass, Boolean withGettersAndSetters);
 }

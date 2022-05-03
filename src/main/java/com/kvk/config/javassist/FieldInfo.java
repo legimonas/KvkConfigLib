@@ -1,8 +1,6 @@
 package com.kvk.config.javassist;
 
-import com.sun.codemodel.JDefinedClass;
-import com.sun.codemodel.JFieldVar;
-import com.sun.codemodel.JMod;
+import com.sun.codemodel.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,15 +36,26 @@ public class FieldInfo extends MemberInfo {
 
 
     @Override
-    public void addSource(JDefinedClass definedClass){
+    public void addSource(JDefinedClass definedClass, Boolean withGettersAndSetters){
         JFieldVar fieldVar = definedClass.field(JMod.PUBLIC, getType(), getName());
         for(AnnotationInfo annotationInfo: annotationsInfo){
             annotationInfo.annotateSource(fieldVar);
         }
+        String capitalizedName = getName().substring(0, 1).toUpperCase() + getName().substring(1);
+
+        if (withGettersAndSetters) {
+            JMethod methodGetter = definedClass.method(JMod.PUBLIC, getType(), "get" + capitalizedName);
+            methodGetter.body()._return(fieldVar);
+            JMethod methodSetter = definedClass.method(JMod.PUBLIC, definedClass.owner().VOID, "set" + capitalizedName);
+            methodSetter.param(getType(), "new" + capitalizedName);
+            methodSetter.body().assign(JExpr._this().ref(getName()), JExpr.ref("new" + capitalizedName));
+        }
     }
 
-
-
+    @Override
+    public void addSource(JDefinedClass definedClass) {
+        addSource(definedClass, false);
+    }
 
     @Override
     public List<AnnotationInfo> getAnnotationsInfo(){
